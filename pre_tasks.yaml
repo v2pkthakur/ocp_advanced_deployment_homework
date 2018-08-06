@@ -17,5 +17,11 @@
       line: 'GUID: {{ GUID.stdout }}'
       path: inventory/group_vars/OSEv3.yaml
      
-  - debug:
-      msg: "{{ GUID.stdout }}"
+  - name: Install basic tools
+    yum:
+      name: "{{ item }}"
+      state: installed
+    with_items:
+    - atomic-openshift-utils
+
+
