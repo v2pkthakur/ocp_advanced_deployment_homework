@@ -1,0 +1,21 @@
+- name: Get the inventory file
+  hosts: localhost
+  tasks:
+  - name: Fetch Local inventory into the working directory
+    fetch:
+      src: /etc/ansible/hosts
+      dest: inventory/hosts
+      flat: yes
+
+  - name: Get the UID
+    shell: hostname | hostname | cut -d. -f2
+    register: GUID
+
+  - name: Replace the Actual GUID
+    lineinfile:
+      regexp: '^GUID'
+      line: 'GUID: {{ GUID.stdout }}'
+      path: inventory/group_vars/OSEv3.yaml
+     
+  - debug:
+      msg: "{{ GUID.stdout }}"

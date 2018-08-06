@@ -1,0 +1,52 @@
+GUID: 44cf
+
+#### ANSIBLE PARAMS ####
+timeout: 60
+ansible_become: yes
+ansible_ssh_user: ec2-user
+
+#### CLUSTER MASTER PARAMS ####
+
+openshift_deployment_type: openshift-enterprise
+containerized: false
+openshift_disable_check: "memory_availability"
+
+openshift_master_identity_providers: [{'name': 'htpasswd_auth','login': 'true', 'challenge': 'true','kind': 'HTPasswdPasswordIdentityProvider','filename': '/etc/origin/master/htpasswd'}]
+openshift_master_cluster_method: native 
+openshift_master_cluster_hostname: loadbalancer1.$GUID.example.opentlc.com
+openshift_master_cluster_public_hostname: loadbalancer1.$GUID.internal
+openshift_master_default_subdomain: apps.$GUID.example.opentlc.com
+openshift_hosted_infra_selector: 'env=infra'
+
+
+##### Metrics ####### 
+openshift_metrics_hawkular_nodeselector:  {"env":"infra"}  
+openshift_metrics_cassandra_nodeselector: {"env":"infra"}
+openshift_metrics_heapster_nodeselector: {"env":"infra"}
+
+openshift_metrics_install_metrics: true
+openshift_metrics_storage_kind: nfs
+openshift_metrics_storage_access_modes: ['ReadWriteOnce']
+openshift_metrics_storage_nfs_directory: /OCP_metrics
+openshift_metrics_storage_nfs_options: '*(rw,root_squash)'
+openshift_metrics_storage_volume_name: metrics
+openshift_metrics_storage_volume_size: 10Gi
+
+##### LOGGING #######
+openshift_logging_es_nodeselector: {"env":"infra"}        
+openshift_logging_kibana_nodeselector: {"env":"infra"}    
+openshift_logging_curator_nodeselector: {"env":"infra"}  
+openshift_logging_install_logging: true
+openshift_logging_storage_kind: nfs
+openshift_logging_storage_access_modes: ['ReadWriteOnce']
+openshift_logging_storage_nfs_directory: /OCP_logging
+openshift_logging_storage_nfs_options: '*(rw,root_squash)'
+openshift_logging_storage_volume_name: logging
+openshift_logging_storage_volume_size: 10Gi
+
+#### Service Broker ####
+openshift_enable_service_catalog: true 
+ansible_service_broker_local_registry_whitelist: ['.*-apb$']
+template_service_broker_selector: {"region": "infra"}
+
+
