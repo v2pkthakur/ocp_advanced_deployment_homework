@@ -12,9 +12,9 @@
     register: GUID
 
   - name: Replace the Actual GUID
-    lineinfile:
-      regexp: '^GUID'
-      line: 'GUID: {{ GUID.stdout }}'
+    replace:
+      regexp: 'GUID'
+      replace: '{{ GUID.stdout }}'
       path: inventory/group_vars/OSEv3.yaml
      
   - name: Install basic tools
