@@ -15,7 +15,7 @@ openshift_master_cluster_hostname: loadbalancer1.ce7c.example.opentlc.com
 openshift_master_cluster_public_hostname: loadbalancer1.ce7c.internal
 openshift_master_default_subdomain: apps.ce7c.example.opentlc.com
 openshift_hosted_infra_selector: 'env=infra'
-openshift_master_htpasswd_users: [{ 'Amy': '$apr1$rQNyQiZA$E/W3DsPAv2uS6A08v8Ioj1' }, { 'Andrew': '$apr1$1N/Xw8er$AIoQfRRonz9f2iRFi08F40' },{ 'Brian': '$apr1$Ml4dBWoZ$Iu73hKxsjbKX78.ohqM.k/' }, { 'Betty': '$apr1$jcj0r8KJ$XdhhXKVQxHyePfRRhY5dH1' }]
+openshift_master_htpasswd_users: { 'Amy': '$apr1$rQNyQiZA$E/W3DsPAv2uS6A08v8Ioj1', 'Andrew': '$apr1$1N/Xw8er$AIoQfRRonz9f2iRFi08F40', 'Brian': '$apr1$Ml4dBWoZ$Iu73hKxsjbKX78.ohqM.k/', 'Betty': '$apr1$jcj0r8KJ$XdhhXKVQxHyePfRRhY5dH1'}
 
 
 ##### Metrics ####### 

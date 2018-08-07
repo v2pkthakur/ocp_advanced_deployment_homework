@@ -1,0 +1,67 @@
+[OSEv3:vars]
+
+###########################################################################
+### Ansible Vars
+###########################################################################
+timeout=60
+ansible_become=yes
+ansible_ssh_user=ec2-user
+
+# disable memory check, as we are not a production environment
+openshift_disable_check="memory_availability"
+
+# Set this line to enable NFS
+openshift_enable_unsupported_configurations=True
+
+
+###########################################################################
+### OpenShift Hosts
+###########################################################################
+[OSEv3:children]
+lb
+masters
+etcd
+nodes
+nfs
+#glusterfs
+
+[lb]
+loadbalancer1.ce7c.internal
+
+[masters]
+master1.ce7c.internal
+master2.ce7c.internal
+master3.ce7c.internal
+
+[etcd]
+master1.ce7c.internal
+master2.ce7c.internal
+master3.ce7c.internal
+
+[nodes]
+## These are the masters
+master1.ce7c.internal openshift_hostname=master1.ce7c.internal  openshift_node_labels="{'env': 'master', 'cluster': 'ce7c'}"
+master2.ce7c.internal openshift_hostname=master2.ce7c.internal  openshift_node_labels="{'env': 'master', 'cluster': 'ce7c'}"
+master3.ce7c.internal openshift_hostname=master3.ce7c.internal  openshift_node_labels="{'env': 'master', 'cluster': 'ce7c'}"
+
+## These are infranodes
+infranode1.ce7c.internal openshift_hostname=infranode1.ce7c.internal  openshift_node_labels="{'env':'infra', 'cluster': 'ce7c'}"
+infranode2.ce7c.internal openshift_hostname=infranode2.ce7c.internal  openshift_node_labels="{'env':'infra', 'cluster': 'ce7c'}"
+
+## These are regular nodes
+node1.ce7c.internal openshift_hostname=node1.ce7c.internal  openshift_node_labels="{'env':'app', 'cluster': 'ce7c'}"
+node2.ce7c.internal openshift_hostname=node2.ce7c.internal  openshift_node_labels="{'env':'app', 'cluster': 'ce7c'}"
+node3.ce7c.internal openshift_hostname=node3.ce7c.internal  openshift_node_labels="{'env':'app', 'cluster': 'ce7c'}"
+
+## These are CNS nodes
+# support1.ce7c.internal openshift_hostname=support1.ce7c.internal  openshift_node_labels="{'env':'glusterfs', 'cluster': 'ce7c'}"
+# support2.ce7c.internal openshift_hostname=support2.ce7c.internal  openshift_node_labels="{'env':'glusterfs', 'cluster': 'ce7c'}"
+# support3.ce7c.internal openshift_hostname=support3.ce7c.internal  openshift_node_labels="{'env':'glusterfs', 'cluster': 'ce7c'}"
+
+[nfs]
+support1.ce7c.internal openshift_hostname=support1.ce7c.internal
+
+#[glusterfs]
+# support1.ce7c.internal glusterfs_devices='[ "/dev/xvdd" ]'
+# support2.ce7c.internal glusterfs_devices='[ "/dev/xvdd" ]'
+# support3.ce7c.internal glusterfs_devices='[ "/dev/xvdd" ]'
