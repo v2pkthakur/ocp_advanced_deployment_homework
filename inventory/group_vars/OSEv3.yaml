@@ -13,9 +13,9 @@ openshift_disable_check: "memory_availability"
 
 openshift_master_identity_providers: [{'name': 'htpasswd_auth','login': 'true', 'challenge': 'true','kind': 'HTPasswdPasswordIdentityProvider','filename': '/etc/origin/master/htpasswd'}]
 openshift_master_cluster_method: native 
-openshift_master_cluster_hostname: loadbalancer1.$GUID.example.opentlc.com
-openshift_master_cluster_public_hostname: loadbalancer1.$GUID.internal
-openshift_master_default_subdomain: apps.$GUID.example.opentlc.com
+openshift_master_cluster_hostname: loadbalancer1.GUID.example.opentlc.com
+openshift_master_cluster_public_hostname: loadbalancer1.GUID.internal
+openshift_master_default_subdomain: apps.GUID.example.opentlc.com
 openshift_hosted_infra_selector: 'env=infra'
 
 
@@ -47,6 +47,6 @@ openshift_logging_storage_volume_size: 10Gi
 #### Service Broker ####
 openshift_enable_service_catalog: true 
 ansible_service_broker_local_registry_whitelist: ['.*-apb$']
-template_service_broker_selector: {"region": "infra"}
+template_service_broker_selector: {"env": "infra"}
 
 
