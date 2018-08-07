@@ -6,6 +6,7 @@
       src: /etc/ansible/hosts
       dest: inventory/hosts
       flat: yes
+      force: yes
 
   - name: Get the UID
     shell: hostname | hostname | cut -d. -f2
