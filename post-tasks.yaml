@@ -1,0 +1,15 @@
+- name: Playbook to do post-tasks.
+  hosts: localhost
+  tasks:
+  - name: Get the Admin Credentials.
+    fetch:
+  
+  - name: Check Router/Registry health
+ 
+  - name: Add Projects
+  
+  - name: Add User Membership
+
+  - name: Modify AdmissionConfig Settings
+
+  - name:  
